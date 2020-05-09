@@ -20,8 +20,7 @@ les tâches que l'on renseigne sur un serveur distant, afin de les *persister* s
 l'on recharge l'application ! 
 
 Par chance, un serveur Node a déjà été développé (cf: dossier `server` pour les curieux).
-Il permet déjà de gérer et persister temporairement (en mémoire vive, pas en BDD) 
-la liste de tâches. Il n'y aura donc plus 
+Il permet déjà de gérer et persister temporairement la liste de tâches (en mémoire vive, pas en base de données). Il n'y aura donc plus 
 qu'à "câbler" le client React avec ce dernier !
 
 Pour cela, le serveur expose une API 
@@ -67,8 +66,6 @@ afin de faciliter certains tests.
 
 ### Récupération des tâches sur le serveur (READ <--> GET)
 
-![](https://memeshappen.com/media/created/2016/11/I-just-like-to-read-Reading-is-my-Favorite.jpg)
-
 Une fois le serveur démarré, écrire la méthode `fetchTasks`. 
 
 #### Validation
@@ -97,8 +94,6 @@ puis recherchez `task relative creation time here` ;)
 
 ### Création d'une tâche sur le serveur (CREATE <--> POST)
 
-![](https://img.pngio.com/free-posting-icon-155456-download-posting-icon-155456-posting-png-512_512.jpg)
-
 Réécrire la méthode `createTask` pour synchroniser la tâche créée sur le serveur. 
 
 #### Validation
@@ -123,9 +118,9 @@ le message d'erreur renvoyé par le serveur est affiché à l'utilisateur.
 
 - Il faudra requêter l'URL [http://localhost:5000/tasks](http://localhost:5000/tasks), 
 cette fois avec le verbe HTTP POST. 
-Les attributs de la nouvelle tâche devront être passés au serveur dans le corps de la requête, comme ceci :
-![](https://i.imgur.com/rCEN4mM.png) Si nécéssaire, se renseigner sur comment passer des données
-dans le corps de la requête avec axios ou fetch en lisant la doc ;)
+Les attributs de la nouvelle tâche devront être passés au serveur dans le corps de la requête, comme sur l'image suivante :
+![](https://i.imgur.com/rCEN4mM.png) 
+- Si nécéssaire, se renseigner sur comment passer des données dans le corps de la requête avec axios ou fetch en lisant la doc ;)
 - La tâche devra être ajoutée dans le tableau de tâches `taskList` présent dans `state` **après** que 
 l'API ait répondu avec l'objet "tâche" créé sur le serveur.
 - Pour le critère 3, il faudra dans `newTask` gérer une clé `_submitting` dont la valeur sera un booléen indiquant à 
@@ -146,27 +141,28 @@ Réécrire la méthode `updateTask` pour synchroniser la tâche le serveur suite
 Action(s) : On coche/décoche une checkbox sur une tâche
 
 Critères :
-1. (MUST) Une fois qu'elle a été mise à jour sur le serveur, le status de complétion 
+1. (MUST) Une fois qu'elle a été mise à jour sur le serveur, le status de complétion de la tâche 
 est mis à jour sur le client.
 2. (MUST) Une fois qu'elle a été mise à jour sur le serveur, 
-on peut recharger la page et se rendre compte qu'elle est 
+on peut recharger la page et constater qu'elle est 
 restée dans le dernier état de complétion renseigné.
 3. (SHOULD) Quand les données sont en train d'être traitées sur le serveur, 
 on voit "Updating task <_name_>..." s'afficher dans à la place du nom de la tâche.
 4. (SHOULD) Lorsque la tâche a bien été modifiée sur le serveur, un message de succès 
-"Task <_name_> successfully updated on the server !" est affiché
+"Task <_name_> successfully updated on the server !" est affiché.
 5. (COULD) Si le serveur est n'est pas démarré et qu'on essaie de modifier une tâche, 
-un message d'erreur "Can't update this task on server" est affiché
+un message d'erreur "Can't update this task on server" est affiché.
 6. (COULD) Si on tente de modifier une tâche qui n'existe plus sur le serveur, 
 le message d'erreur renvoyé par le serveur est affiché à l'utilisateur. 
-Pour tester facilement : creer une nouvelle tâche, 
+Pour tester : creer une nouvelle tâche, 
 redémarrer le serveur et essayer de modifier cette dernière tâche 
 (sans avoir rechargé l'application).
 
 #### Indices / Conseils pour le développement
 
-- Il faudra requêter l'URL [http://localhost:5000/tasks/id](http://localhost:5000/tasks/:id), 
-avec le verbe HTTP PATCH, où il faudra remplacer `id` par l'identifiant de la tâche à modifier. 
+- Il faudra requêter l'URL `http://localhost:5000/tasks/:id`, 
+avec le verbe HTTP PATCH, où il faudra remplacer `:id` par l'identifiant 
+de la tâche à modifier (`id` dans les objets "tâche"). 
 Les nouveaux attributs de la tâche (ceux qui ont possiblement changé, ici `done`) 
 devront être passés au serveur dans le corps de la requête.
 Si nécéssaire, se renseigner sur comment spécifier le verbe PATCH et passer des données
@@ -177,11 +173,9 @@ Cette clé devra être présente dans l'objet "tâche" en cours de mise à jour,
 est contenu dans le tableau `taskList` du `state`.
 - Pour le critère 6, si l'API renvoie un message d'erreur, on pourra récupérer 
 ce dernier dans `error.response.data.errorMessage` 
-(si `error` est la variable représentant l'erreur dans le `catch`).
+(si `error` est la variable représentant l'erreur au niveau du bloc `catch`).
 
 ### Suppresion d'une tâche sur le serveur (DELETE/DESTROY <--> DELETE)
-
-![](https://www.theseoproject.org/wp-content/uploads/2016/08/delete-sp-meme.png)
 
 Réécrire la méthode `updateTask` pour synchroniser la tâche le serveur suite au cochage/décochage de la checkbox. 
 
@@ -193,7 +187,7 @@ Critères :
 1. (MUST) Une fois qu'elle a supprimée sur le serveur, elle est retirée de la liste 
 sur le client.
 2. (MUST) Une fois qu'elle a été supprimée sur le serveur, 
-on peut recharger la page et ne pas la voir réapparaître.
+on peut recharger la page et ne pas voir la tâche supprimée réapparaître.
 3. (SHOULD) Quand la suppression est en cours sur le serveur, 
 on voit "Deleting task <_name_>..." s'afficher dans à la place du nom de la tâche.
 4. (SHOULD) Lorsque la tâche a été supprimée sur le serveur, un message de succès 
@@ -209,15 +203,15 @@ redémarrer le serveur et essayer de supprimer cette dernière
 #### Indices / Conseils pour le développement
 
 - Il faudra requêter l'URL `http://localhost:5000/tasks/:id`, 
-avec le verbe HTTP DELETE, où il faudra remplacer `:id` par l'identifiant de la tâche à modifier. 
+avec le verbe HTTP DELETE, où il faudra remplacer `:id` par l'identifiant de la tâche à supprimer. 
 Si nécéssaire, se renseigner sur comment spécifier le verbe DELETE avec axios ou fetch en lisant la doc ;)
 - Pour le critère 3, il faudra gérer une clé `_deleting` dont la valeur sera 
 un booléen indiquant à l'interface si la tâche en question est en cours de synchronisation.
-Cette clé devra être présente dans l'objet "tâche" en cours de mise à jour, cet objet 
+Cette clé devra être présente dans l'objet "tâche" en cours de suppression, cet objet 
 est contenu dans le tableau `taskList` du `state`.
 - Pour le critère 6, si l'API n'a pas trouvé la tâche 
 à supprimer, `error.response.status` vaudra `404` 
-(si `error` est la variable représentant l'erreur dans le `catch`).
+(si `error` est la variable représentant l'erreur au niveau du bloc `catch`).
 
 ## Au-delà du dojo
 
@@ -231,9 +225,9 @@ Comme cette application manipule des données relativement simples,
 il est tout à fait possible (et même souhaitable) de reprendre et 
 completer ce dernier tout au long de la formation pour revoir cette base 
 (qui sera très vite indispensable) 
-ou encore expérimenter de nouvelles choses :)
+ou encore pour expérimenter de nouvelles choses :)
 
-### Idées pour pratiquer encore plus
+### Idées pour pratiquer encore plus les bases de React
 
 - Un bouton "reload" permettant de recharger la liste des tâches depuis le serveur
 - Un bouton "afficher uniquement les tâches à faire" / "afficher toutes les tâches"
@@ -242,32 +236,36 @@ sur le serveur et le client
 - Un bouton "Tout décocher" qui ira mettre `done` à `false` pour toutes les 
 tâches sur le serveur et le client
 - Un filtre par nom de tâche
-- Réusiner le code (mieux compartimenter les composants, utiliser les hooks, ...)
+- Permettre d'entrer plusieurs tâche d'un coup en spérant leurs noms par des vigules (ou un autre séparateur)
+- Réusiner le code (mieux compartimenter les composants, améliorer la partie UI/UX, utiliser les hooks, ...)
 - Utiliser l'API Context pour permettre le choix entre plusieurs thèmes ("mode dark", ...)
-- (Avancé) Au double-clique sur une tâche, permettre d'éditer le nom dans un 
+- (+) Au double-clique sur une tâche, permettre d'éditer le nom dans un 
 formulaire et répercuter les modifications sur le serveur quand 
 on a arreté d'écrire depuis x secondes par exemple, ou/et quand on appuie sur Entrée.
 
 ### Idées pour appronfondir et découvrir de nouvelles notions
 
-- (Avancé) Utiliser [i18n](https://github.com/i18next/react-i18next) pour internationaliser l'interface.
-- (Avancé) Implémenter une gestion du state centralisée avec [Redux](https://redux.js.org/introduction/getting-started).
-- (Très avancé) C'est pas hyper propre d'ajouter des propriétés `_submitting`, `_updating` ou `_deleting` 
+- (+) Utiliser [i18n](https://github.com/i18next/react-i18next) pour internationaliser l'interface.
+- (+) Implémenter une gestion du state centralisée avec [Redux](https://redux.js.org/introduction/getting-started).
+- (++) Actuellement, on ajoute les propriétés `_submitting`, `_updating` ou `_deleting` 
 sur des objets métiers (les tâches) afin d'avoir facilement des informations sur 
 leurs états individuels de synchronisation avec l'API. 
-[On pourrait utiliser les symboles pour éviter de polluer nos tâches avec ces propriétés](https://medium.com/intrinsic/javascript-symbols-but-why-6b02768f4a5c). 
-- (Très avancé) Implémenter [des mises à jour "optimistes" sur l'interface](https://medium.com/@_erikaybar/optimistic-ui-updates-in-react-9e139ffa2e45).
+Comme c'est une petite application ce n'est pas vraiment dérangeant, mais rajouter des proriétés 
+de cette manière n'est en règle général pas conseillé car on risque d'entrer en collision avec le nom 
+de propriétés des objets qui provienent d'une source externe. 
+[Une solution serait d'utiliser les symboles pour éviter de polluer le namespace de nos tâches](https://medium.com/intrinsic/javascript-symbols-but-why-6b02768f4a5c). 
+- (++) Implémenter [des mises à jour "optimistes" sur l'interface](https://medium.com/@_erikaybar/optimistic-ui-updates-in-react-9e139ffa2e45).
 
-### Idées pour aller beaucoup plus loin
+### Idées pour aller (beaucoup) plus loin
 
-- (Très avancé) [Implémenter les fonctionnalités d'une PWA (mode "offline", ...)](https://www.youtube.com/watch?v=C6S-SOqAX-k).
-- (Très très avancé) Aller voir comment est programmée l'API, 
+- (++) [Implémenter les fonctionnalités d'une PWA (mode "offline", ...)](https://www.youtube.com/watch?v=C6S-SOqAX-k).
+- (+++) Aller voir comment est programmée l'API, 
 tenter de [persister les infos dans une base de donnée MySQL](https://www.mysqltutorial.org/mysql-nodejs/) (ou autre).
-- (Très très avancé) Completez serveur et client pour implémenter une pagination des tâches.
-- (Très très avancé) Completez serveur et client pour gérer 
+- (+++) Complétez serveur et client pour implémenter une pagination des tâches.
+- (+++) Completez serveur et client pour gérer 
 des "chronomètres" (démarrer, mettre en pause, reprendre, remettre à zero) sur les tâches.
-- (Avancé à l'extrême) Implémenter une communication bi-directionnelle entre client et serveur, 
+- (++++) Implémenter une communication bi-directionnelle entre client et serveur, 
 pour faire une application en "temps réel" (si je lance un autre client et que le premier ajoute une tâche, 
 je la vois automatiquement apparaître sans aucune action de ma part). 
 On pourrait par exemple utiliser [socket.io](https://socket.io/) et l'intégrer au serveur Node existant, 
-ou carrément repartir sur un autre back-end en utilisant [Firebase](https://firebase.google.com/docs/firestore))
+ou carrément repartir sur un autre back-end en utilisant [Firebase](https://firebase.google.com/docs/firestore) par exemple.

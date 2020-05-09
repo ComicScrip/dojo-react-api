@@ -53,11 +53,13 @@ class App extends React.Component {
   updateNewTaskAttributes = (newAttributes) => {
     this.setState({ newTask: { ...this.state.newTask, ...newAttributes } });
   }
+
   updateTaskLocally = (id, newAttributes) => {
     this.setState({
       taskList: this.state.taskList.map(task => task.id === id ? { ...task, ...newAttributes } : task)
     });
   }
+
   handleCreateTaskEvent = event => {
     event.preventDefault();
     const { newTask } = this.state;
@@ -116,7 +118,7 @@ class App extends React.Component {
           this.setState({ taskList: this.state.taskList.filter(t => t.id !== id) });
           this.showErrorMessage('This task does not exist on the server');
         } else {
-          this.showErrorMessage(`Can't update this task on server`);
+          this.showErrorMessage('Can\'t update this task on server');
         }
       })
       .finally(() => {
@@ -136,7 +138,7 @@ class App extends React.Component {
           this.setState({ taskList: this.state.taskList.filter(t => t.id !== id) });
           this.showErrorMessage('This task did not exist on the server but has been removed from the list anyway.');
         } else {
-          this.showErrorMessage(`Can't delete this task on server`);
+          this.showErrorMessage('Can\'t delete this task on server');
         }
         this.updateTaskLocally(id, { _deleting: false });
       });
@@ -200,7 +202,7 @@ class App extends React.Component {
                           onChange={(event) => updateTask(t.id, event.target.checked)}
                         />
                       </TableCell>
-                      <TableCell><p title={"task relative creation time here"}>{taskNameFieldValue}</p></TableCell>
+                      <TableCell><p title='task relative creation time here'>{taskNameFieldValue}</p></TableCell>
                       <TableCell align='right'>
                         <DeleteForeverIcon className='task-action-btn' onClick={() => deleteTask(t.id)} />
                       </TableCell>
