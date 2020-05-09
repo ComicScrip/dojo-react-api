@@ -14,9 +14,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-// import moment from 'moment';
+import moment from 'moment';
 
-// const parseDateString = dateStr => moment(dateStr, 'YYYY-MM-DD HH:mm:ss');
+const parseDateString = dateStr => moment(dateStr, 'YYYY-MM-DD HH:mm:ss');
 const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 const newTaskDefaultAttributes = {
   name: '',
@@ -71,77 +71,27 @@ class App extends React.Component {
   }
 
   fetchTasks = () => {
-    this.setState({ loadingTasks: true });
-    axios.get('http://localhost:5000/tasks')
-      .then(res => res.data)
-      .then(taskList => this.setState({ taskList }))
-      .catch(() => {
-        this.showErrorMessage("Can't load tasks form the server");
-      })
-      .finally(() => {
-        this.setState({ loadingTasks: false });
-      });
+    console.log('Getting all tasks form the server... (TODO)');
+    // TODO
   }
 
   createTask = () => {
-    this.setState({ newTask: { ...this.state.newTask, _submitting: true } });
-    const { newTask: { name, done } } = this.state;
-    axios.post('http://localhost:5000/tasks', { name, done })
-      .then(res => res.data)
-      .then(newTask => {
-        this.setState({ taskList: [...this.state.taskList, newTask], newTask: { ...newTaskDefaultAttributes } });
-        this.showSuccessMessage(`Task "${name}" successfully created on the server !`);
-      })
-      .catch(error => {
-        if (get(error, 'response.data.errorMessage')) {
-          this.showErrorMessage(get(error, 'response.data.errorMessage'));
-        } else {
-          this.showErrorMessage(`Can't create task "${name}" on server`);
-        }
-      })
-      .finally(() => {
-        this.setState({ newTask: { ...this.state.newTask, _submitting: false } });
-      });
+    const { newTask } = this.state;
+    this.setState({ taskList: [...this.state.taskList, { ...newTask, id: Math.random() }], newTask: { ...newTaskDefaultAttributes } });
+    console.log('Posting the new task on the server... (TODO)');
+    // TODO
   }
 
   updateTask = (id, done) => {
-    this.updateTaskLocally(id, { _updating: true });
-    axios.patch('http://localhost:5000/tasks/' + id, { done })
-      .then(res => res.data)
-      .then(updatedTask => {
-        this.updateTaskLocally(id, updatedTask);
-        const taskName = this.state.taskList.find(t => t.id === id).name;
-        this.showSuccessMessage(`Task "${taskName}" successfully updated on the server !`);
-      })
-      .catch(error => {
-        if (get(error, 'response.status') === 404) {
-          this.setState({ taskList: this.state.taskList.filter(t => t.id !== id) });
-          this.showErrorMessage('This task does not exist on the server');
-        } else {
-          this.showErrorMessage('Can\'t update this task on server');
-        }
-      })
-      .finally(() => {
-        this.updateTaskLocally(id, { _updating: false });
-      });
+    this.updateTaskLocally(id, { done });
+    console.log('Patching an existing task on the server... (TODO)');
+    // TODO
   }
 
   deleteTask = id => {
-    this.updateTaskLocally(id, { _deleting: true });
-    axios.delete('http://localhost:5000/tasks/' + id)
-      .then(() => {
-        this.setState({ taskList: this.state.taskList.filter(t => t.id !== id) });
-        this.showSuccessMessage('Task successfully deleted !');
-      })
-      .catch(error => {
-        if (get(error, 'response.status') === 404) {
-          this.setState({ taskList: this.state.taskList.filter(t => t.id !== id) });
-          this.showErrorMessage('This task did not exist on the server but has been removed from the list anyway.');
-        } else {
-          this.showErrorMessage('Can\'t delete this task on server');
-        }
-        this.updateTaskLocally(id, { _deleting: false });
-      });
+    this.setState({ taskList: this.state.taskList.filter(t => t.id !== id) });
+    console.log('Patching an existing task on the server... (TODO)');
+    // TODO
   }
 
   render () {
@@ -191,8 +141,8 @@ class App extends React.Component {
                   let taskNameFieldValue = formattedName;
                   if (t._updating) { taskNameFieldValue = `Updating task "${formattedName}" on the server...`; }
                   if (t._deleting) { taskNameFieldValue = `Deleting task "${formattedName}" on the server...`; }
-                  // const createdAtMoment = parseDateString(t.createdAt);
-                  // const hoverMessage = `Created ${createdAtMoment.fromNow()}`;
+                  const createdAtMoment = parseDateString(t.createdAt);
+                  const hoverMessage = `Created ${createdAtMoment.fromNow()}`;
 
                   return (
                     <TableRow className={'task-row' + (processing ? ' processing' : '')} key={t.id}>
