@@ -274,6 +274,8 @@ tenter de [persister les infos dans une base de donnée MySQL](https://www.mysql
 - (+++) Complétez serveur et client pour implémenter une pagination des tâches.
 - (+++) Completez serveur et client pour gérer 
 des "chronomètres" (démarrer, mettre en pause, reprendre, remettre à zero) sur les tâches.
+- (+++) Completez serveur et client pour gérer une `position` dans la liste pour les tâches. 
+Au niveau de l'interface, [on pourrait les réordonner avec du "Drag n' Drop" !](https://react-beautiful-dnd.netlify.app/?path=/story/single-vertical-list--basic)
 - (++++) Implémenter une communication bi-directionnelle entre client et serveur, 
 pour faire une application en "temps réel" (si je lance un autre client et que le premier ajoute une tâche, 
 je la vois automatiquement apparaître sans aucune action de ma part). 
