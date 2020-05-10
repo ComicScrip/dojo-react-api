@@ -230,8 +230,8 @@ bref: des *données métier* que l'on souhaite bien souvent *persister* afin de 
 Autant dire que cette notion de "CRUD" est omniprésente dans l'immense majorité des applications web !
 
 Comme cette application manipule des données relativement simples, 
-il est tout à fait possible (et même souhaitable) de reprendre et 
-completer ce dernier tout au long de la formation pour revoir cette base 
+il est tout à fait possible (et même souhaitable) de la reprendre et de la 
+completer tout au long de la formation pour revoir la base 
 (qui sera très vite indispensable) 
 ou encore pour expérimenter de nouvelles choses :)
 
