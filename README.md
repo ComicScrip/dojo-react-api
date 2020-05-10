@@ -230,8 +230,8 @@ bref: des *données métier* que l'on souhaite bien souvent *persister* afin de 
 Autant dire que cette notion de "CRUD" est omniprésente dans l'immense majorité des applications web !
 
 Comme cette application manipule des données relativement simples, 
-il est tout à fait possible (et même souhaitable) de reprendre et 
-completer ce dernier tout au long de la formation pour revoir cette base 
+il est tout à fait possible (et même souhaitable) de la reprendre et de la 
+completer tout au long de la formation pour revoir la base 
 (qui sera très vite indispensable) 
 ou encore pour expérimenter de nouvelles choses :)
 
@@ -274,8 +274,13 @@ tenter de [persister les infos dans une base de donnée MySQL](https://www.mysql
 - (+++) Complétez serveur et client pour implémenter une pagination des tâches.
 - (+++) Completez serveur et client pour gérer 
 des "chronomètres" (démarrer, mettre en pause, reprendre, remettre à zero) sur les tâches.
+- (+++) Completez serveur et client pour gérer une `position` dans la liste pour les tâches. 
+Au niveau de l'interface, [on pourrait les réordonner avec du "Drag n' Drop" !](https://react-beautiful-dnd.netlify.app/?path=/story/single-vertical-list--basic)
 - (++++) Implémenter une communication bi-directionnelle entre client et serveur, 
 pour faire une application en "temps réel" (si je lance un autre client et que le premier ajoute une tâche, 
 je la vois automatiquement apparaître sans aucune action de ma part). 
 On pourrait par exemple utiliser [socket.io](https://socket.io/) et l'intégrer au serveur Node existant, 
 ou carrément repartir sur un autre back-end en utilisant [Firebase](https://firebase.google.com/docs/firestore) par exemple.
+
+
+![](https://userscontent2.emaze.com/images/0b24312e-2699-463f-b93e-879a21912f21/7f130d4dba241a4fcccc6aba99010dcf.jpeg)
