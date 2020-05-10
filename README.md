@@ -34,6 +34,10 @@ qu'il faudra requêter en lecture et en écriture, à l'aide de
 [axios](https://github.com/axios/axios), pour réaliser les opérations 
 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) sur ces tâches.
 
+Une fois le serveur démarré, il est possible d'accéder à la documentation 
+interactive de l'API à l'adresse 
+[http://localhost:5000/api-docs/](http://localhost:5000/api-docs/).
+
 ## Avant de commencer
 
 Installer et démarrer le serveur :
@@ -56,6 +60,10 @@ Par soucis de simplicité, toute l'application tient
 dans le composant App et il n'y aura presque pas à intervenir au niveau 
 de la méthode `render`, puisque la partie "affichage" est déjà 
 en grande partie développée. 
+
+Allez voir [la documentation de l'API](http://localhost:5000/api-docs/) 
+et intéragissez avec cette dernière pour vous familiariser un peu 
+avec (boutons "Try it out" puis "Execute" sur chaque route).
 
 ## Fonctionnalités à développer
 

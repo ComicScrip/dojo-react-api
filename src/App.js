@@ -14,9 +14,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-// import moment from 'moment';
+import moment from 'moment';
 
-// const parseDateString = dateStr => moment(dateStr, 'YYYY-MM-DD HH:mm:ss');
 const capitalizeFirstLetter = string => string.charAt(0).toUpperCase() + string.slice(1);
 const newTaskDefaultAttributes = {
   name: '',
@@ -191,8 +190,8 @@ class App extends React.Component {
                   let taskNameFieldValue = formattedName;
                   if (t._updating) { taskNameFieldValue = `Updating task "${formattedName}" on the server...`; }
                   if (t._deleting) { taskNameFieldValue = `Deleting task "${formattedName}" on the server...`; }
-                  // const createdAtMoment = parseDateString(t.createdAt);
-                  // const hoverMessage = `Created ${createdAtMoment.fromNow()}`;
+                  const createdAtMoment = moment(t.createdAt);
+                  const hoverMessage = `Created ${createdAtMoment.fromNow()}`;
 
                   return (
                     <TableRow className={'task-row' + (processing ? ' processing' : '')} key={t.id}>
@@ -202,7 +201,7 @@ class App extends React.Component {
                           onChange={(event) => updateTask(t.id, event.target.checked)}
                         />
                       </TableCell>
-                      <TableCell><p title='task relative creation time here'>{taskNameFieldValue}</p></TableCell>
+                      <TableCell><p title={hoverMessage}>{taskNameFieldValue}</p></TableCell>
                       <TableCell align='right'>
                         <DeleteForeverIcon className='task-action-btn' onClick={() => deleteTask(t.id)} />
                       </TableCell>
