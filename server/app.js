@@ -28,7 +28,7 @@ const swaggerOptions = {
       servers: ['http://localhost:' + PORT]
     }
   },
-  apis: ['./index.js']
+  apis: ['./app.js']
 };
 
 /**

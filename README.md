@@ -279,3 +279,6 @@ pour faire une application en "temps réel" (si je lance un autre client et que 
 je la vois automatiquement apparaître sans aucune action de ma part). 
 On pourrait par exemple utiliser [socket.io](https://socket.io/) et l'intégrer au serveur Node existant, 
 ou carrément repartir sur un autre back-end en utilisant [Firebase](https://firebase.google.com/docs/firestore) par exemple.
+
+
+![](https://userscontent2.emaze.com/images/0b24312e-2699-463f-b93e-879a21912f21/7f130d4dba241a4fcccc6aba99010dcf.jpeg)
