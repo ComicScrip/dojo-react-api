@@ -5,30 +5,30 @@ const bodyParser = require('body-parser');
 const app = express();
 const uniqid = require('uniqid');
 const moment = require('moment');
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const PORT = process.env.PORT || 5000;
 
 const swaggerOptions = {
   definition: {
-    "swagger": "2.0",
+    swagger: '2.0',
     info: {
-      title: "Tasks API",
+      title: 'Tasks API',
       version: '1.0.0',
-      description: "A simple REST API allowing to manage tasks",
+      description: 'A simple REST API allowing to manage tasks',
       contact: {
-        "name": "API Support",
-        "url": "https://github.com/ComicScrip",
-        "email": "pierre.genthon@wildcodeschool.com"
+        name: 'API Support',
+        url: 'https://github.com/ComicScrip',
+        email: 'pierre.genthon@wildcodeschool.com'
       },
       license: {
-        "name": "GNU General Public License v3.0",
-        "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+        name: 'GNU General Public License v3.0',
+        url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
       },
-      servers: ["http://localhost:" + PORT]
-    },
+      servers: ['http://localhost:' + PORT]
+    }
   },
-  apis: ["./index.js"]
+  apis: ['./index.js']
 };
 
 /**
@@ -87,7 +87,7 @@ const setupOptions = {
   customCss: '.swagger-ui .scheme-container { display: none }'
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs, setupOptions));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, setupOptions));
 app.use(cors());
 app.use(bodyParser.json());
 const GET_TASKS_DELAY_MS = 1000;
@@ -136,19 +136,19 @@ app.post('/tasks', (req, res) => {
   setTimeout(() => {
     const { name, done } = req.body;
 
-    const validationErrorsByFieldName = {}
+    const validationErrorsByFieldName = {};
     if (!(typeof name === 'string' && name.length > 0)) validationErrorsByFieldName.name = 'Cannot be blank';
     if (!(typeof done === 'boolean')) validationErrorsByFieldName.done = 'Must be a boolean value';
 
     if (Object.keys(validationErrorsByFieldName).length > 0) {
       res.status(400);
-      return res.json({ errorMessage: `provided attributes aren't valid`, validationErrors: validationErrorsByFieldName });
+      return res.json({ errorMessage: 'provided attributes aren\'t valid', validationErrors: validationErrorsByFieldName });
     }
 
     const existingTask = _.find(tasks, { name: name.toLowerCase() });
     if (existingTask) {
       res.status(400);
-      return res.json({errorMessage: `A task named "${name.toLowerCase()}" already exists on the server`});
+      return res.json({ errorMessage: `A task named "${name.toLowerCase()}" already exists on the server` });
     }
 
     const newTask = { id: uniqid(), name: name.toLowerCase(), done, createdAt: moment().format() };
@@ -235,7 +235,7 @@ app.patch('/tasks/:id', (req, res) => {
 
     if (Object.keys(validationErrorsByFieldName).length > 0) {
       res.status(400);
-      return res.json({ errorMessage: `provided attributes aren't valid`, validationErrors: validationErrorsByFieldName });
+      return res.json({ errorMessage: 'provided attributes aren\'t valid', validationErrors: validationErrorsByFieldName });
     }
 
     const existingTask = _.find(tasks, { id });
@@ -281,7 +281,5 @@ app.delete('/tasks/:id', (req, res) => {
     }
   }, DELETE_TASK_DELAY_MS);
 });
-
-
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
